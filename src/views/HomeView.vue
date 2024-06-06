@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import SwipeCard from '../components/SwipeCard.vue';
 import TabBar from '../components/TabBar.vue';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+
+moment.updateLocale('zh-cn', {
+  weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+  weekdaysShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+  weekdaysMin: ['日', '一', '二', '三', '四', '五', '六']
+});
 moment.locale('zh-cn');
 
 // Define the formatted date as a computed property
@@ -20,6 +26,7 @@ const currentDate = computed(() => {
     <TabBar />
   </main>
 </template>
+
 
 <style scoped>
 h1 {
