@@ -22,13 +22,21 @@ const currentDate = computed(() => {
   <main>
     <h1>记录</h1>
     <p>{{ currentDate }}</p>
-    <SwipeCard />
+    <SwipeCard class="swipe"/>
     <TabBar />
   </main>
 </template>
 
 
 <style scoped>
+.swipe {
+  /* 将卡片的宽度设置为1占满全屏 */
+  width: calc(100% + 4rem);
+  /* 这里的4rem是抵消app中的2rem padding */
+  margin-left: -2rem;
+  /* 同样的2rem */
+}
+
 h1 {
   font-size: 2rem;
   margin-top: 1rem;
