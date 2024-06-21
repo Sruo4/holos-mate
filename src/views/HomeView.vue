@@ -1,9 +1,26 @@
+<template>
+  <main>
+    <h1>记录</h1><span @click="loginout">退出登录</span>
+    <p>{{ currentDate }}</p>
+    <SwipeCard class="swipe"/>
+    <TabBar />
+  </main>
+</template>
+
 <script setup lang="ts">
 import { computed } from 'vue';
 import SwipeCard from '../components/SwipeCard.vue';
 import TabBar from '../components/TabBar.vue';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+
+// 导入authStore
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+
+// 使用authStore
+const router = useRouter();
+const authStore = useAuthStore();
 
 moment.updateLocale('zh-cn', {
   weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -16,17 +33,12 @@ moment.locale('zh-cn');
 const currentDate = computed(() => {
   return moment().format('YYYY年M月D日 dddd');
 });
+
+const loginout = () => {
+  authStore.logout();
+  router.push('/login');
+}
 </script>
-
-<template>
-  <main>
-    <h1>记录</h1>
-    <p>{{ currentDate }}</p>
-    <SwipeCard class="swipe"/>
-    <TabBar />
-  </main>
-</template>
-
 
 <style scoped>
 .swipe {
