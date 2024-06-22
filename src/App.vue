@@ -1,9 +1,19 @@
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
+<script setup>
+import { provide, nextTick, ref } from 'vue'
+
+const isRouterActive = ref(true)
+provide('reload', () => {
+  isRouterActive.value = false
+  nextTick(() => {
+    isRouterActive.value = true
+  })
+})
 </script>
 
 <template>
-  <RouterView />
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <style>
