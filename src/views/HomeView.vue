@@ -16,18 +16,21 @@
         <p>{{ currentDate }}</p>
       </div>
       <div class="right">
-        <button @click="takeRecord">记录</button>
+        <button @click="showRecordData" >日期</button>
       </div>
     </div>
-    <SwipeCard class="swipe" />
+    <SwipeCard class="swipe" @click="takeRecord" />
+
+    <RecordModal :isVisible="isModalVisible" @close="hideModal" @save="handleSave" />
 
     <TabBar />
   </main>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import SwipeCard from '../components/SwipeCard.vue';
+import RecordModal from '../components/RecordModal.vue';
 import TabBar from '../components/TabBar.vue';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -52,13 +55,28 @@ const currentDate = computed(() => {
   return moment().format('YYYY年M月D日 dddd');
 });
 
+const isModalVisible = ref(false);
+
 const loginout = () => {
   authStore.logout();
   router.push('/login');
 }
 
 const takeRecord = () => {
-  console.log('takeRecord');
+  isModalVisible.value = true;
+}
+
+const hideModal = () => {
+  isModalVisible.value = false;
+}
+
+const handleSave = (record) => {
+  console.log('记录内容:', record);
+  hideModal();
+}
+
+const showRecordData = () => {
+  router.push('/record');
 }
 </script>
 
