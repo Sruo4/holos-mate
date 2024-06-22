@@ -73,4 +73,40 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.get('/search', (req, res) => {
+  console.log(req.query);
+  req.query.keyword
+
+  const { keyword } = req.query
+
+  pool.query('SELECT * FROM disease WHERE name LIKE ?', [`%${keyword}%`], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('搜索失败');
+    }
+    console.log(results);
+
+    res.status(200).send(results);
+  });
+}
+);
+
+//根据疾病id获取疾病详情
+app.get('/detail/:id', (req, res) => {
+  console.log(req.params);
+  const { id } = req.params;
+  pool.query('SELECT * FROM disease WHERE id = ?', [id], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('获取疾病详情失败');
+    }
+    console.log(results);
+
+    res.status(200).send(results[0]);
+  });
+});
+
+// 启动Express应用
+
+
 app.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`));
