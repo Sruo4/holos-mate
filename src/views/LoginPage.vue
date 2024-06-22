@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
@@ -81,7 +81,9 @@ onMounted(() => {
 /* 限制页面高度 */
 html, body {
   height: 100%;
+  width: 100%;
   overflow: hidden;
+  margin: 0;
 }
 
 .login-container {

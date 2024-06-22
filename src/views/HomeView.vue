@@ -16,15 +16,14 @@
         <p>{{ currentDate }}</p>
       </div>
       <div class="right">
-        <button @click="showRecordData" >日期</button>
+        <button @click="showRecordData">日期</button>
       </div>
     </div>
     <SwipeCard class="swipe" @click="takeRecord" />
 
     <RecordModal :isVisible="isModalVisible" @close="hideModal" @save="handleSave" />
-
-    <TabBar />
   </main>
+
 </template>
 
 <script setup lang="ts">
@@ -85,7 +84,8 @@ main {
   padding: 2rem;
 }
 
-.header, .record {
+.header,
+.record {
   display: flex;
   justify-content: space-between;
   align-items: center;

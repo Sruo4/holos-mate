@@ -1,3 +1,10 @@
+<template>
+  <div id="app">
+    <router-view></router-view>
+    <TabBar />
+  </div>
+</template>
+
 <script setup>
 import { provide, nextTick, ref } from 'vue'
 
@@ -9,12 +16,6 @@ provide('reload', () => {
   })
 })
 </script>
-
-<template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
-</template>
 
 <style>
 html {

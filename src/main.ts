@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 
 // fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSeedling, faPersonWalking, faHeartCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import { faSeedling, faPersonWalking, faHeartCircleCheck, faUser, faSearch, faHome } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import App from './App.vue'
@@ -15,7 +15,7 @@ app.use(createPinia())
 app.use(router)
 
 // fontawesome
-library.add(faSeedling, faPersonWalking, faHeartCircleCheck)
+library.add(faSeedling, faPersonWalking, faHeartCircleCheck, faUser, faSearch, faHome)
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')

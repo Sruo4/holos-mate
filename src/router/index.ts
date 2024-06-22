@@ -4,6 +4,8 @@ import { useAuthStore } from '../stores/auth'
 
 import HomeView from '../views/HomeView.vue'
 import LoginPage from '../views/LoginPage.vue'
+import SearchIndex from '../views/SearchIndex.vue'
+import ProfileView from '../views/ProfileView.vue'
 
 
 const router = createRouter({
@@ -15,17 +17,19 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginPage
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchIndex
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView
     },
   ]
 })
