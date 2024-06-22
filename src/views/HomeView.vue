@@ -1,8 +1,26 @@
 <template>
   <main>
-    <h1>记录</h1><span @click="loginout">退出登录</span>
-    <p>{{ currentDate }}</p>
-    <SwipeCard class="swipe"/>
+    <div class="header">
+      <div class="left">
+        <h1>记录</h1>
+
+      </div>
+      <div class="right">
+        <button @click="loginout">退出登录</button>
+      </div>
+
+    </div>
+
+    <div class="record">
+      <div class="left">
+        <p>{{ currentDate }}</p>
+      </div>
+      <div class="right">
+        <button @click="takeRecord">记录</button>
+      </div>
+    </div>
+    <SwipeCard class="swipe" />
+
     <TabBar />
   </main>
 </template>
@@ -38,9 +56,23 @@ const loginout = () => {
   authStore.logout();
   router.push('/login');
 }
+
+const takeRecord = () => {
+  console.log('takeRecord');
+}
 </script>
 
 <style scoped>
+main {
+  padding: 2rem;
+}
+
+.header, .record {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .swipe {
   /* 将卡片的宽度设置为1占满全屏 */
   width: calc(100% + 4rem);

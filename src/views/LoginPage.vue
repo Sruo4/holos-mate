@@ -78,6 +78,12 @@ onMounted(() => {
 </script>
 
 <style>
+/* 限制页面高度 */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .login-container {
   display: flex;
   align-items: start;
@@ -92,8 +98,8 @@ onMounted(() => {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   z-index: 1;
   /* Background在最底层 */
   background: radial-gradient(circle at 25% 20%, #fe8833, #fabe9d, #f1dace, #e8e8e8, #e8e8e8, #e8e8e8, #e8e8e8, #e8e8e8);
