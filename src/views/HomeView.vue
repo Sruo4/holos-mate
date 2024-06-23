@@ -3,27 +3,24 @@
     <div class="header">
       <div class="left">
         <h1>记录</h1>
-
       </div>
       <div class="right">
         <button @click="loginout">退出登录</button>
       </div>
-
     </div>
 
     <div class="record">
       <div class="left">
         <p>{{ currentDate }}</p>
       </div>
-      <div class="right">
+      <!-- <div class="right">
         <button @click="showRecordData">日期</button>
-      </div>
+      </div> -->
     </div>
     <SwipeCard class="swipe" @click="takeRecord" />
 
-    <RecordModal :isVisible="isModalVisible" @close="hideModal" @save="handleSave" />
+    <RecordModal :isVisible="isModalVisible" :recordType="currentRecordType" @close="hideModal" @save="handleSave" />
   </main>
-
 </template>
 
 <script setup lang="ts">
@@ -33,34 +30,33 @@ import RecordModal from '../components/RecordModal.vue';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 
-// 导入authStore
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
-// 使用authStore
 const router = useRouter();
 const authStore = useAuthStore();
 
 moment.updateLocale('zh-cn', {
-  weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+  Weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
   weekdaysShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
   weekdaysMin: ['日', '一', '二', '三', '四', '五', '六']
 });
 moment.locale('zh-cn');
 
-// Define the formatted date as a computed property
 const currentDate = computed(() => {
   return moment().format('YYYY年M月D日 dddd');
 });
 
 const isModalVisible = ref(false);
+const currentRecordType = ref('');
 
 const loginout = () => {
   authStore.logout();
   router.push('/login');
 }
 
-const takeRecord = () => {
+const takeRecord = (recordType: string) => {
+  currentRecordType.value = recordType;
   isModalVisible.value = true;
 }
 
@@ -96,6 +92,7 @@ main {
   /* 这里的4rem是抵消app中的2rem padding */
   margin-left: -2rem;
   /* 同样的2rem */
+  height: 50vh;
 }
 
 h1 {

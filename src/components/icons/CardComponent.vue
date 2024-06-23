@@ -30,7 +30,7 @@ defineProps<{ card: Card }>();
     font-size: 1.5rem;
     color: gray;
     text-align: center;
-
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .content-wrap {

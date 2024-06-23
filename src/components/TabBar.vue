@@ -35,8 +35,13 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: #F4F5F7; 
     border-top: 1px solid #ddd;
+    /* 底部固定导航栏 */
+    /* 阴影实现分层效果 */
+    z-index: 100;
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+
 }
 
 .tabbar-item {

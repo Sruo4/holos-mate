@@ -1,5 +1,5 @@
 <template>
-  <swiper :slidesPerView="'auto'"    :centeredSlides="true"  :spaceBetween="20" :initial-slide="1" class="mySwiper">
+  <swiper :slidesPerView="'auto'" :centeredSlides="true" :spaceBetween="20" :initial-slide="1" class="mySwiper">
     <swiper-slide v-for="(card, index) in cards" :key="index" @click="handleCardClick(card)">
       <CardComponent :card="card" />
     </swiper-slide>
@@ -17,18 +17,10 @@ const cards = [
   { content: '症状记录', status: '无', icon: ['fas', 'heart-circle-check'], color: '#C6CFEA' }
 ];
 
-const handleCardClick = (card: { content: any; }) => {
-  switch (card.content) {
-    case '心情状态':
-      console.log('心情状态');
-      break;
-    case '生活习惯':
-      console.log('生活习惯');
-      break;
-    case '症状记录':
-      console.log('症状记录');
-      break;
-  }
+const emit = defineEmits(['click']);
+
+const handleCardClick = (card: { content: string }) => {
+  emit('click', card.content);
 };
 </script>
 
