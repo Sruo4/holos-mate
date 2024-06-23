@@ -8,6 +8,7 @@
 <script setup>
 import { provide, nextTick, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import TabBar from './components/TabBar.vue'
 
 const isRouterActive = ref(true)
 provide('reload', () => {
