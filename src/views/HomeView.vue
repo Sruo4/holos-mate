@@ -20,11 +20,13 @@
         <button @click="showRecordData">日期</button>
       </div> -->
     </div>
-    <SwipeCard class="swipe" @click="takeRecord" />
+    <SwipeCard class="swipe" @click="takeRecord" @hasData="allCardsHaveData = $event" />
 
     <!-- 生成报告按钮 -->
      <div class="g-button">
-        <button @click="generateReport">生成报告</button>
+      <button @click="generateReport">
+        {{ allCardsHaveData ? '生成报告' : '数据不足' }}
+      </button>
       </div>
 
     <RecordModal :isVisible="isModalVisible" :recordType="currentRecordType" @close="hideModal" @save="handleSave" />
@@ -39,10 +41,10 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 import axios from 'axios';
 
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
-// const router = useRouter();
+const router = useRouter();
 const authStore = useAuthStore();
 
 moment.updateLocale('zh-cn', {
@@ -58,8 +60,7 @@ const currentDate = computed(() => {
 
 const isModalVisible = ref(false);
 const currentRecordType = ref('');
-
-
+const allCardsHaveData = ref(false);
 
 const takeRecord = (recordType: string) => {
   currentRecordType.value = recordType;
@@ -112,8 +113,12 @@ const handleSave = (record: any) => {
 // }
 
 const generateReport = () => {
-  // router.push('/report');
-  console.log('生成报告');
+  if (allCardsHaveData.value) {
+    console.log('生成报告');
+    router.push('/report');
+  } else {
+    console.log('数据不足，无法生成报告');
+  }
 }
 </script>
 

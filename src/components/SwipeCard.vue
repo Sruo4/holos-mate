@@ -19,7 +19,7 @@ const cards = ref([
   { content: '症状记录', status: '无', icon: ['fas', 'heart-circle-check'], color: '#C6CFEA' }
 ]);
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['click', 'hasData']);
 
 const handleCardClick = (card: { content: string }) => {
   emit('click', card.content);
@@ -30,6 +30,7 @@ const fetchCardStatus = async () => {
     const response = await axios.get('/api/card-status');
     const data = response.data;
 
+    let allHaveData = true;
     cards.value = cards.value.map(card => {
       const updatedCard = data.find((item: { content: string; }) => item.content === card.content);
       if (updatedCard && updatedCard.lastUpdate) {
@@ -38,11 +39,16 @@ const fetchCardStatus = async () => {
           ...card,
           status: `最近更新时间：${time}`
         };
+      } else {
+        allHaveData = false;
+        return card;
       }
-      return card;
     });
+
+    emit('hasData', allHaveData);
   } catch (error) {
     console.error('Error fetching card status:', error);
+    emit('hasData', false);
   }
 };
 
