@@ -35,7 +35,7 @@ interface ChatContent {
 
 const finalChat = ref<ChatContent[]>([]);
 const loading = ref(false);
-const ttsWS = ref(null);
+const ttsWS = ref<WebSocket | null>(null);
 const aiContentRequest = ref('');
 interface FetchedData {
   lifeRecord: {
@@ -56,8 +56,6 @@ const fetchedData = ref<FetchedData | null>(null);
 
 const authStore = useAuthStore();
 
-
-
 onMounted(() => {
     fetchDataAndStart();
 });
@@ -67,7 +65,6 @@ const fetchDataAndStart = async () => {
         // 根据uuid 获取最新的症状记录
         const uuid = authStore.user?.uuid;
         // 设置get请求的url.params为uuid
-
         const response = await axios.get(`/api/symptom-record/${uuid}`);
         fetchedData.value = response.data;
         console.log(fetchedData.value);
@@ -78,7 +75,7 @@ const fetchDataAndStart = async () => {
     }
 };
 
-const getWebsocketUrl = () => {
+const getWebsocketUrl = (): Promise<string> => {
     return new Promise((resolve) => {
         const host = window.location.host;
         const date = new Date().toUTCString();
@@ -95,7 +92,7 @@ const getWebsocketUrl = () => {
 };
 
 const connectWebSocket = () => {
-    getWebsocketUrl().then((url) => {
+    getWebsocketUrl().then((url: string) => {
         if ('WebSocket' in window) {
             ttsWS.value = new WebSocket(url);
         } else {
@@ -103,21 +100,23 @@ const connectWebSocket = () => {
             return;
         }
 
-        ttsWS.value.onopen = () => {
-            webSocketSend();
-        };
+        if (ttsWS.value) {
+            ttsWS.value.onopen = () => {
+                webSocketSend();
+            };
 
-        ttsWS.value.onmessage = (e: { data: any; }) => {
-            result(e.data);
-        };
+            ttsWS.value.onmessage = (e: { data: any; }) => {
+                result(e.data);
+            };
 
-        ttsWS.value.onerror = () => {
-            alert('WebSocket报错，请f12查看详情');
-        };
+            ttsWS.value.onerror = () => {
+                alert('WebSocket报错，请f12查看详情');
+            };
 
-        ttsWS.value.onclose = (e: any) => {
-            console.log(e);
-        };
+            ttsWS.value.onclose = (e: any) => {
+                console.log(e);
+            };
+        }
     });
 };
 
@@ -152,7 +151,9 @@ const webSocketSend = () => {
         }
     };
 
-    ttsWS.value.send(JSON.stringify(params));
+    if (ttsWS.value) {
+        ttsWS.value.send(JSON.stringify(params));
+    }
 };
 
 const requestHandle = (requestData: { payload: { choices: { text: string | any[]; }; }; }) => {
@@ -177,7 +178,9 @@ const result = (resultData: string) => {
             ai: aiContentRequest.value,
         });
         loading.value = false;
-        ttsWS.value.close();
+        if (ttsWS.value) {
+            ttsWS.value.close();
+        }
     }
 };
 

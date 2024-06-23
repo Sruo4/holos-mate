@@ -8,13 +8,13 @@
         <button class="cancel-button" @click="close">取消</button>
       </div>
 
-
       <component :is="currentFormComponent" v-if="recordType === '心情状态'" :moodValue="moodValue"
         @update:moodValue="updateMoodValue"></component>
       <component :is="currentFormComponent" v-if="recordType === '生活习惯'" :height="height" :weight="weight"
         :sleepHours="sleepHours" :steps="steps" @update:height="updateHeight" @update:weight="updateWeight"
         @update:sleepHours="updateSleepHours" @update:steps="updateSteps"></component>
-      <component :is="currentFormComponent" v-if="recordType === '症状记录'" :recordText="recordText" @update:recordText="updateRecordText"></component>
+      <component :is="currentFormComponent" v-if="recordType === '症状记录'" :recordText="recordText"
+        @update:recordText="updateRecordText"></component>
       <button class="save-button" @click="saveRecord">保存</button>
     </div>
   </div>
@@ -26,17 +26,20 @@ import MoodForm from './icons/MoodForm.vue';
 import LifestyleForm from './icons/LifeForm.vue';
 import GeneralForm from './icons/SymptomsForm.vue';
 
-const recordText = ref('');
-const moodValue = ref(50);
+// 定义可能的类型
+type Nullable<T> = T | null;
+
+const recordText = ref<Nullable<string>>(null);
+const moodValue = ref<Nullable<number>>(null);
 
 // 生活习惯相关数据
-const height = ref(0);
-const weight = ref(0);
-const bodyFat = ref(0);
-const sleepHours = ref(0);
-const steps = ref(0);
-const bmi = ref(0);
-const calories = ref(0);
+const height = ref<Nullable<number>>(null);
+const weight = ref<Nullable<number>>(null);
+// const bodyFat = ref<Nullable<number>>(null);
+const sleepHours = ref<Nullable<number>>(null);
+const steps = ref<Nullable<number>>(null);
+const bmi = ref<Nullable<number>>(null);
+const calories = ref<Nullable<number>>(null);
 
 const props = defineProps({
   isVisible: Boolean,
@@ -50,7 +53,7 @@ const close = () => {
 }
 
 const saveRecord = () => {
-  let content = {};
+  let content: any = {};
   if (props.recordType === '心情状态') {
     content = moodValue.value;
   } else if (props.recordType === '生活习惯') {
@@ -94,17 +97,16 @@ const updateRecordText = (newText: unknown) => {
   recordText.value = newText as string;
 }
 
-// 使用一个 getter 函数作为 watch 的第一个参数
 watch(() => props.isVisible, (newVal) => {
   if (newVal) {
-    recordText.value = '';
-    height.value = 0;
-    weight.value = 0;
-    bodyFat.value = 0;
-    sleepHours.value = 0;
-    steps.value = 0;
-    bmi.value = 0;
-    calories.value = 0;
+    recordText.value = null;
+    height.value = null;
+    weight.value = null;
+    // bodyFat.value = null;
+    sleepHours.value = null;
+    steps.value = null;
+    bmi.value = null;
+    calories.value = null;
   }
 });
 
