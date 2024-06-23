@@ -4,7 +4,7 @@ import axios from 'axios';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isAuthenticated: false,
-    user: null as { username: string } | null,
+    user: null as { uuid: string; username: string } | null, // 添加用户信息
     token: null as string | null, // 修改类型为 string | null
     rememberMe: false, // 添加rememberMe状态
   }),
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
           // 登录成功
           console.log('登录成功', response.data);
           this.isAuthenticated = true;
-          this.user = { username }; // 仅保存用户名，具体信息视需求添加
+          this.user = { uuid: response.data.uuid, username }; // 保存用户信息
           this.token = response.data.token; // 保存JWT
 
           if (this.token) {

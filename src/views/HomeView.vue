@@ -34,10 +34,10 @@ import 'moment/locale/zh-cn';
 import axios from 'axios';
 
 // import { useRouter } from 'vue-router';
-// import { useAuthStore } from '../stores/auth';
+import { useAuthStore } from '../stores/auth';
 
 // const router = useRouter();
-// const authStore = useAuthStore();
+const authStore = useAuthStore();
 
 moment.updateLocale('zh-cn', {
   Weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -70,7 +70,8 @@ const handleSave = (record: any) => {
     console.log('心情状态:', record.content);
     // 发送请求
     axios.post('/api/record/mood', {
-      mood: record.content
+      mood: record.content,
+      uuid: authStore.user?.uuid
     }).then(response => {
       console.log(response.data);
     }).catch(error => {
@@ -78,8 +79,24 @@ const handleSave = (record: any) => {
     });
   } else if (record.type==='生活习惯') {
     console.log('生活习惯:', record.content);
+    axios.post('/api/record/lifestyle', {
+      ...record.content,
+      uuid: authStore.user?.uuid
+    }).then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.error(error);
+    });
   } else {
     console.log('症状:', record.content);
+    axios.post('/api/record/symptoms', {
+      symptoms: record.content,
+      uuid: authStore.user?.uuid
+    }).then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.error(error);
+    });
   }
   hideModal();
 }
