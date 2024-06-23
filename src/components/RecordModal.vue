@@ -70,28 +70,28 @@ const saveRecord = () => {
   close();
 }
 
-const updateMoodValue = (newValue: number) => {
-  moodValue.value = newValue;
+const updateMoodValue = (newValue: unknown) => {
+  moodValue.value = newValue as number;
 }
 
-const updateHeight = (newValue: number) => {
-  height.value = newValue;
+const updateHeight = (newValue: unknown) => {
+  height.value = newValue as number;
 }
 
-const updateWeight = (newValue: number) => {
-  weight.value = newValue;
+const updateWeight = (newValue: unknown) => {
+  weight.value = newValue as number;
 }
 
-const updateSleepHours = (newValue: number) => {
-  sleepHours.value = newValue;
+const updateSleepHours = (newValue: unknown) => {
+  sleepHours.value = newValue as number;
 }
 
-const updateSteps = (newValue: number) => {
-  steps.value = newValue;
+const updateSteps = (newValue: unknown) => {
+  steps.value = newValue as number;
 }
 
-const updateRecordText = (newText: string) => {
-  recordText.value = newText;
+const updateRecordText = (newText: unknown) => {
+  recordText.value = newText as string;
 }
 
 // 使用一个 getter 函数作为 watch 的第一个参数

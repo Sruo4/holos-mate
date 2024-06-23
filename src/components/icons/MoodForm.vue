@@ -19,7 +19,7 @@
   import { ref, computed, watch } from 'vue';
   
   const props = defineProps({
-    moodValue: String
+    moodValue: Number
   });
   const emit = defineEmits(['update:moodValue']);
   
