@@ -206,5 +206,8 @@ button {
 .grid-item span {
     margin-top: 8px;
     font-size: 14px;
+    width: 80px;
+    /* 居中 */
+    text-align: center;
 }
 </style>

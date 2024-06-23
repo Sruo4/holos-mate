@@ -17,7 +17,7 @@ const cards = [
   { content: '症状记录', status: '无', icon: ['fas', 'heart-circle-check'], color: '#C6CFEA' }
 ];
 
-const handleCardClick = (card) => {
+const handleCardClick = (card: { content: any; }) => {
   switch (card.content) {
     case '心情状态':
       console.log('心情状态');
