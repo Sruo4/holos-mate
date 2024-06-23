@@ -31,12 +31,13 @@ import SwipeCard from '../components/SwipeCard.vue';
 import RecordModal from '../components/RecordModal.vue';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import axios from 'axios';
 
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '../stores/auth';
+// import { useRouter } from 'vue-router';
+// import { useAuthStore } from '../stores/auth';
 
-const router = useRouter();
-const authStore = useAuthStore();
+// const router = useRouter();
+// const authStore = useAuthStore();
 
 moment.updateLocale('zh-cn', {
   Weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -65,12 +66,27 @@ const hideModal = () => {
 
 const handleSave = (record: any) => {
   console.log('记录内容:', record);
+  if (record.type==='心情状态') {
+    console.log('心情状态:', record.content);
+    // 发送请求
+    axios.post('/api/record/mood', {
+      mood: record.content
+    }).then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.error(error);
+    });
+  } else if (record.type==='生活习惯') {
+    console.log('生活习惯:', record.content);
+  } else {
+    console.log('症状:', record.content);
+  }
   hideModal();
 }
 
-const showRecordData = () => {
-  router.push('/record');
-}
+// const showRecordData = () => {
+//   router.push('/record');
+// }
 </script>
 
 <style scoped>
