@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <TabBar />
+    <TabBar v-if="showTabBar" />
   </div>
 </template>
 
 <script setup>
-import { provide, nextTick, ref } from 'vue'
+import { provide, nextTick, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 const isRouterActive = ref(true)
 provide('reload', () => {
@@ -15,6 +16,14 @@ provide('reload', () => {
     isRouterActive.value = true
   })
 })
+
+const route = useRoute()
+const showTabBar = ref(true)
+
+// 监听路由变化，根据元信息决定是否显示TabBar
+watch(route, () => {
+  showTabBar.value = !route.meta.hideTabBar
+}, { immediate: true })
 </script>
 
 <style>

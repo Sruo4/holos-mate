@@ -132,6 +132,10 @@ html, body {
   width: 100%;
 }
 
+.login-form input {
+  padding-left: 1.5rem;
+}
+
 .form-input {
   width: 100%;
   height: 6vh;

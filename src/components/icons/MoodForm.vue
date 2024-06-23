@@ -26,8 +26,9 @@
   const localMoodValue = ref(props.moodValue ?? 0);
   
   watch(localMoodValue, (newValue) => {
-    emit('update:moodValue', newValue);
-  });
+  const numericValue = Number(newValue);
+  emit('update:moodValue', numericValue);
+});
   
   const petalStyle = computed(() => {
     const color = getColorFromMood(localMoodValue.value);
