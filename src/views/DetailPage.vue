@@ -1,9 +1,7 @@
 <template>
     <div class="detail-page">
         <header>
-            <router-link to="/search">
-                返回
-            </router-link>
+            <div @click="goBack">返回</div>
             <h1>详情页</h1>
         </header>
         <section v-if="detail">
@@ -40,6 +38,10 @@ const fetchDetail = async () => {
     } catch (error) {
         console.error(error);
     }
+};
+
+const goBack = () => {
+    window.history.back();
 };
 
 onMounted(fetchDetail);

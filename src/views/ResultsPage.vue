@@ -4,7 +4,7 @@
             <!-- 返回导航 -->
             <router-link to="/search" class="back-link">
                 <FontAwesomeIcon icon="arrow-left" />
-                返回
+                搜索
             </router-link>
             <h1>搜索结果 "{{ $route.query.q }}"</h1>
         </header>
@@ -12,7 +12,7 @@
             <div v-for="result in results" :key="result.id" class="result-item" @click="goToDetail(result.id)">
                 <!-- 结果卡片 -->
                  <div class="result-card">
-                    <div class="result-image">
+                    <div class="result-image" v-if="result.image_url">
                         <img :src="result.image_url" alt="result.name" />
                     </div>
                     <div class="result-info">
@@ -84,11 +84,11 @@ h1 {
     padding: 8px;
     cursor: pointer;
     flex: 1 0 250px;
-    max-width: 300px;
 }
 
 .result-card {
     /* border: 1px solid #ddd; */
+    background-color: white;
     border-radius: 8px;
     padding: 16px;
     display: flex;
