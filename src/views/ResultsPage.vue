@@ -2,11 +2,11 @@
     <div class="results-page">
         <header>
             <!-- 返回导航 -->
-            <router-link to="/search" class="back-link">
-                <FontAwesomeIcon icon="arrow-left" />
-                搜索
-            </router-link>
-            <h1>搜索结果 "{{ $route.query.q }}"</h1>
+            <div @click="goBack">
+                <font-awesome-icon :icon="['fas', 'angle-left']" />
+                分类
+            </div>
+            <h1>{{ $route.query.q }}</h1>
         </header>
         <section class="results">
             <div v-for="result in results" :key="result.id" class="result-item" @click="goToDetail(result.id)">
@@ -18,6 +18,7 @@
                     <div class="result-info">
                         <p class="result-name">{{ result.name }}</p>
                         <p class="result-description">{{ result.description }}</p>
+                        <button>查看详情</button><button>记录</button>
                     </div>
                  </div>
             </div>
@@ -54,6 +55,12 @@ const fetchResults = async () => {
     }
 };
 
+const goBack = () => {
+    // 返回上一页
+    router.back();
+    
+};
+
 const goToDetail = (id) => {
     router.push({ path: '/detail', query: { id } });
 };
@@ -65,12 +72,18 @@ watch(() => route.query.q, fetchResults);
 
 <style scoped>
 .results-page {
-    padding: 16px;
-    text-align: center;
+    padding: 2rem;
+    /* text-align: center; */
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 2rem
 }
 
 .results {
@@ -81,18 +94,20 @@ h1 {
 }
 
 .result-item {
-    padding: 8px;
+    /* padding: 8px; */
     cursor: pointer;
     flex: 1 0 250px;
+    margin: 8px 0;
 }
 
 .result-card {
     /* border: 1px solid #ddd; */
     background-color: white;
     border-radius: 8px;
+    height: 120px;
     padding: 16px;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: box-shadow 0.3s ease;
 }
@@ -129,5 +144,30 @@ h1 {
     -webkit-line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* 倒数第二个按钮 */
+button:nth-last-child(2) {
+    margin: 8px 8px 0 0;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #FEDE33;
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+button:last-child {
+    margin: 8px 8px 0 0;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    /* background-color: #FEDE33; */
+    color: black;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 8px;
 }
 </style>

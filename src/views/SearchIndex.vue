@@ -8,13 +8,13 @@
             <p>十二时辰养生</p>
             <div>
                 {{ health12Hours }} {{ hoursDesc }} 养生
-                
             </div>
             <p>{{ healthTips }}</p>
         </div>
 
         <div class="search-form">
-            &nbsp;<FontAwesomeIcon icon="search" />&nbsp;
+            &nbsp;
+            <FontAwesomeIcon icon="search" />&nbsp;
             <input type="text" v-model="query" placeholder="输入关键词" />
             <button @click="search">搜索</button>
         </div>
@@ -25,9 +25,15 @@
             </div>
         </div>
 
-        <!-- <div class="categories">
+        <div class="categories">
             <h2>分类</h2>
-        </div> -->
+            <div class="grid">
+                <div v-for="(category, index) in categories" :key="index" class="grid-item">
+                    <!-- <img :src="category.icon" :alt="category.name" /> -->
+                    <span>{{ category.name }}</span>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -63,6 +69,17 @@ const health12Hours = currentPeriod.period;
 const hoursDesc = currentPeriod.range;
 const healthTips = currentPeriod.tip;
 
+// 分类数据
+const categories = ref([
+    { name: '感染/肿瘤', icon: 'path/to/all-icon.png' },
+    { name: '代谢/内分泌', icon: 'path/to/cups-icon.png' },
+    { name: '系统性疾病', icon: 'path/to/vases-icon.png' },
+    { name: '特定条件', icon: 'path/to/plates-icon.png' },
+    { name: '其他分类', icon: 'path/to/other-icon.png' },
+    { name: '全部'}
+
+]);
+
 const search = () => {
     if (query.value.trim()) {
         errorMessage.value = '';
@@ -88,8 +105,18 @@ h1 {
     margin-top: 16px;
     background-color: white;
     padding: 16px;
-    border: 1px solid #E4E7EB;
+
     border-radius: 12px;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.health-12-hours p:first-child {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
 .search-form {
@@ -105,6 +132,7 @@ h1 {
     /* 在水平方向上分布 */
     padding: 0 8px;
     /* 添加左右内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 input {
@@ -127,11 +155,9 @@ button {
     /* 调整按钮的宽度 */
 }
 
-
-
 .message-container {
-    margin-top: 16px;
-    height: 4vh;
+    margin-top: 8px;
+    height: 2rem;
 }
 
 .error-message {
@@ -139,9 +165,37 @@ button {
 }
 
 .categories {
+    text-align: flex-start;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    justify-content: center;
     margin-top: 16px;
-    background-color: white;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
     padding: 16px;
+    border: 1px solid #E4E7EB;
     border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* transition: box-shadow 0.3s ease; */
+    background-color: white;
+}
+
+.grid-item img {
+    width: 50px;
+    height: 50px;
+}
+
+.grid-item span {
+    margin-top: 8px;
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
     <div class="detail-page">
         <header>
-            <div @click="goBack">返回</div>
-            <h1>详情页</h1>
+            <!-- 返回导航 -->
+            <div @click="goBack">
+                <font-awesome-icon :icon="['fas', 'angle-left']" />
+                分类
+            </div>
+            <h1>{{ $route.query.q }}</h1>
         </header>
         <section v-if="detail">
             <h2>{{ detail.name }}</h2>
@@ -50,8 +54,14 @@ onMounted(fetchDetail);
 
 <style scoped>
 .detail-page {
-    padding: 16px;
+    padding: 2rem;
     text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h1 {
