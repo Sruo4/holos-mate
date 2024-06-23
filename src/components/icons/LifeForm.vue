@@ -21,23 +21,29 @@
   <script setup lang="ts">
   import { ref, watch } from 'vue';
   
-  const height = ref(0);
-  const weight = ref(0);
-  const bodyFat = ref(0);
-  const sleepHours = ref(0);
-  const steps = ref(0);
-  const bmi = ref(0);
-  const calories = ref(0);
+  const height = ref<number | string>(0);
+  const weight = ref<number | string>(0);
+  const bodyFat = ref<number | string>(0);
+  const sleepHours = ref<number | string>(0);
+  const steps = ref<number | string>(0);
+  const bmi = ref<number>(0);
+  const calories = ref<number>(0);
   
   const calculateBMI = () => {
-    if (height.value > 0 && weight.value > 0) {
-      bmi.value = (weight.value / ((height.value / 100) ** 2)).toFixed(2);
+    const heightNum = Number(height.value);
+    const weightNum = Number(weight.value);
+    if (heightNum > 0 && weightNum > 0) {
+      bmi.value = parseFloat((weightNum / ((heightNum / 100) ** 2)).toFixed(2));
     }
   };
   
   const calculateCalories = () => {
-    calories.value = (steps.value * 0.04).toFixed(2); // 假设每步消耗0.04卡路里
+    calories.value = parseFloat((Number(steps.value) * 0.04).toFixed(2)); // 假设每步消耗0.04卡路里
   };
+  
+  watch(height, calculateBMI);
+  watch(weight, calculateBMI);
+  watch(steps, calculateCalories);
   </script>
   
   <style scoped>

@@ -45,7 +45,7 @@
     }
   });
   
-  const getColorFromMood = (value) => {
+  const getColorFromMood = (value: number) => {
     if (value <= 20) {
       return `rgba(128, 0, 128, ${value / 100 + 0.5})`; // 紫色
     } else if (value <= 40) {
