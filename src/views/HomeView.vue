@@ -5,7 +5,8 @@
         <h1>记录</h1>
       </div>
       <div class="right">
-        <button @click="loginout">退出登录</button>
+       <!-- 圆形头像 -->
+        <img src="https://avatars.githubusercontent.com/u/204768?v=4" alt="头像" width="40" height="40" style="border-radius: 50%;"/>
       </div>
     </div>
 
@@ -13,6 +14,7 @@
       <div class="left">
         <p>{{ currentDate }}</p>
       </div>
+
       <!-- <div class="right">
         <button @click="showRecordData">日期</button>
       </div> -->
@@ -50,10 +52,7 @@ const currentDate = computed(() => {
 const isModalVisible = ref(false);
 const currentRecordType = ref('');
 
-const loginout = () => {
-  authStore.logout();
-  router.push('/login');
-}
+
 
 const takeRecord = (recordType: string) => {
   currentRecordType.value = recordType;

@@ -24,6 +24,9 @@
                 <div class="card-content">症状数据</div>  
             </div>
         </div>
+
+        <!-- 退出登录 -->
+        <button class="logout-button" @click="loginout">退出登录</button>
         
 
 
@@ -31,7 +34,17 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '../stores/auth';
+import { useRouter } from 'vue-router';
 
+const authStore = useAuthStore();
+const router = useRouter();
+
+
+const loginout = () => {
+  authStore.logout();
+  router.push('/login');
+}
 </script>
 
 <style scoped>
