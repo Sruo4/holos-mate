@@ -11,18 +11,27 @@
         </div>
       </div>
       <div class="mood-description">{{ moodDescription }}</div>
-      <input type="range" v-model="moodValue" min="0" max="100" @input="updateFlower" class="custom-slider" />
+      <input type="range" v-model="localMoodValue" min="0" max="100" @input="updateFlower" class="custom-slider" />
     </div>
   </template>
   
   <script setup lang="ts">
-  import { ref, computed } from 'vue';
+  import { ref, computed, watch } from 'vue';
   
-  const moodValue = ref(50);
+  const props = defineProps({
+    moodValue: Number
+  });
+  const emit = defineEmits(['update:moodValue']);
+  
+  const localMoodValue = ref(props.moodValue ?? 0);
+  
+  watch(localMoodValue, (newValue) => {
+    emit('update:moodValue', newValue);
+  });
   
   const petalStyle = computed(() => {
-    const color = getColorFromMood(moodValue.value);
-    const scale = moodValue.value / 100 + 0.5;
+    const color = getColorFromMood(localMoodValue.value);
+    const scale = localMoodValue.value / 100 + 0.5;
     return {
       backgroundColor: color,
       transform: `scale(${scale})`
@@ -30,7 +39,7 @@
   });
   
   const moodDescription = computed(() => {
-    const value = moodValue.value;
+    const value = localMoodValue.value;
     if (value <= 20) {
       return '非常不愉快';
     } else if (value <= 40) {
@@ -136,6 +145,7 @@
   .custom-slider {
     margin-top: 2rem;
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 2rem;
     background: #ddd;

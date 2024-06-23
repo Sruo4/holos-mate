@@ -1,15 +1,20 @@
-<!-- RecordModal.vue -->
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="close">
     <div class="modal-content">
-      <!-- 导航栏 -->
       <div class="nav">
-        <div class="nav-title" >
+        <div class="nav-title">
           {{ recordType }}
         </div>
         <button class="cancel-button" @click="close">取消</button>
       </div>
-      <component :is="currentFormComponent"></component>
+
+
+      <component :is="currentFormComponent" v-if="recordType === '心情状态'" :moodValue="moodValue"
+        @update:moodValue="updateMoodValue"></component>
+      <component :is="currentFormComponent" v-if="recordType === '生活习惯'" :height="height" :weight="weight"
+        :sleepHours="sleepHours" :steps="steps" @update:height="updateHeight" @update:weight="updateWeight"
+        @update:sleepHours="updateSleepHours" @update:steps="updateSteps"></component>
+      <component :is="currentFormComponent" v-if="recordType === '症状记录'" :recordText="recordText" @update:recordText="updateRecordText"></component>
       <button class="save-button" @click="saveRecord">保存</button>
     </div>
   </div>
@@ -53,16 +58,40 @@ const saveRecord = () => {
       height: height.value,
       weight: weight.value,
       bmi: bmi.value,
-      bodyFat: bodyFat.value,
+      // bodyFat: bodyFat.value,
       sleepHours: sleepHours.value,
       steps: steps.value,
       calories: calories.value
     };
-  } else {
+  } else if (props.recordType === '症状记录') {
     content = recordText.value;
   }
   emit('save', { type: props.recordType, content });
   close();
+}
+
+const updateMoodValue = (newValue: number) => {
+  moodValue.value = newValue;
+}
+
+const updateHeight = (newValue: number) => {
+  height.value = newValue;
+}
+
+const updateWeight = (newValue: number) => {
+  weight.value = newValue;
+}
+
+const updateSleepHours = (newValue: number) => {
+  sleepHours.value = newValue;
+}
+
+const updateSteps = (newValue: number) => {
+  steps.value = newValue;
+}
+
+const updateRecordText = (newText: string) => {
+  recordText.value = newText;
 }
 
 // 使用一个 getter 函数作为 watch 的第一个参数
@@ -121,7 +150,7 @@ const currentFormComponent = computed(() => {
 }
 
 .nav-title {
-margin-left: 34vw;
+  margin-left: 34vw;
   font-size: 1rem;
   font-weight: bold;
 }
@@ -153,5 +182,4 @@ margin-left: 34vw;
   font-size: 1rem;
   cursor: pointer;
 }
-
 </style>

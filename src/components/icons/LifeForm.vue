@@ -3,34 +3,28 @@
         <div class="card purple-card">
             <h2>填写最近的身高体重</h2>
             <div class="form-group">
-                <input type="number" id="height" v-model="height" class="custom-input" placeholder="身高(cm)" />
+                <input type="number" id="height" v-model="localHeight" class="custom-input" placeholder="身高(cm)" />
             </div>
             <div class="form-group">
-                <input type="number" id="weight" v-model="weight" class="custom-input" placeholder="体重(kg)" />
+                <input type="number" id="weight" v-model="localWeight" class="custom-input" placeholder="体重(kg)" />
             </div>
             <div class="form-group">
                 <div class="bmi-result">BMI: {{ bmi }}</div>
             </div>
         </div>
-<!-- 
-        <div class="card blue-card">
-            <h2>填写体脂率</h2>
-            <div class="form-group">
-                <input type="number" id="body-fat" v-model="bodyFat" class="custom-input" placeholder="体脂率(%)" />
-            </div>
-        </div> -->
 
         <div class="card green-card">
             <h2>填写睡眠时长</h2>
             <div class="form-group">
-                <input type="number" id="sleep-hours" v-model="sleepHours" class="custom-input" placeholder="睡眠时长(小时)" />
+                <input type="number" id="sleep-hours" v-model="localSleepHours" class="custom-input"
+                    placeholder="睡眠时长(小时)" />
             </div>
         </div>
 
         <div class="card orange-card">
             <h2>填写步数</h2>
             <div class="form-group">
-                <input type="number" id="steps" v-model="steps" class="custom-input" placeholder="步数" />
+                <input type="number" id="steps" v-model="localSteps" class="custom-input" placeholder="步数" />
             </div>
             <div class="calories-result">消耗卡路里: {{ calories }} 卡</div>
         </div>
@@ -38,31 +32,47 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 
-const height = ref<number | string>('');
-const weight = ref<number | string>('');
-const bodyFat = ref<number | string>('');
-const sleepHours = ref<number | string>('');
-const steps = ref<number | string>('');
-const bmi = ref<number>(0);
-const calories = ref<number>(0);
+const props = defineProps({
+    height: Number,
+    weight: Number,
+    sleepHours: Number,
+    steps: Number
+});
 
-const calculateBMI = () => {
-    const heightNum = Number(height.value);
-    const weightNum = Number(weight.value);
+const emit = defineEmits(['update:height', 'update:weight', 'update:sleepHours', 'update:steps']);
+
+const localHeight = ref(props.height);
+const localWeight = ref(props.weight);
+const localSleepHours = ref(props.sleepHours);
+const localSteps = ref(props.steps);
+
+watch(localHeight, (newValue) => {
+    emit('update:height', newValue);
+});
+watch(localWeight, (newValue) => {
+    emit('update:weight', newValue);
+});
+watch(localSleepHours, (newValue) => {
+    emit('update:sleepHours', newValue);
+});
+watch(localSteps, (newValue) => {
+    emit('update:steps', newValue);
+});
+
+const bmi = computed(() => {
+    const heightNum = Number(localHeight.value);
+    const weightNum = Number(localWeight.value);
     if (heightNum > 0 && weightNum > 0) {
-        bmi.value = parseFloat((weightNum / ((heightNum / 100) ** 2)).toFixed(2));
+        return parseFloat((weightNum / ((heightNum / 100) ** 2)).toFixed(2));
     }
-};
+    return 0;
+});
 
-const calculateCalories = () => {
-    calories.value = parseFloat((Number(steps.value) * 0.04).toFixed(2)); // 假设每步消耗0.04卡路里
-};
-
-watch(height, calculateBMI);
-watch(weight, calculateBMI);
-watch(steps, calculateCalories);
+const calories = computed(() => {
+    return parseFloat((Number(localSteps.value) * 0.04).toFixed(2)); // 假设每步消耗0.04卡路里
+});
 </script>
 
 <style scoped>
