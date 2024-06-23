@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import TwelveHourHealth from '../components/TwelveHourHealth.vue';
 import SearchForm from '../components/SearchForm.vue';
 import Categories from '../components/CategoriesComponent.vue';
