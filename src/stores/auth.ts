@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', {
     rememberMe: false, // 添加rememberMe状态
   }),
   actions: {
-    async login(username, password) {
+    async login(username: string, password: string) {
       try {
         // 调用 API 进行登录
         const response = await axios.post('api/login', { username, password });
@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
     },
-    async register(username, password) {
+    async register(username: string, password: string) {
       try {
         // 注册逻辑
         const response = await axios.post('api/register', { username, password });

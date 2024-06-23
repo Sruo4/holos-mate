@@ -1,11 +1,25 @@
 <template>
     <div class="results-page">
         <header>
+            <!-- 返回导航 -->
+            <router-link to="/search" class="back-link">
+                <FontAwesomeIcon icon="arrow-left" />
+                返回
+            </router-link>
             <h1>搜索结果 "{{ $route.query.q }}"</h1>
         </header>
         <section class="results">
             <div v-for="result in results" :key="result.id" class="result-item" @click="goToDetail(result.id)">
-                <p>{{ result.name }}</p>
+                <!-- 结果卡片 -->
+                 <div class="result-card">
+                    <div class="result-image">
+                        <img :src="result.image_url" alt="result.name" />
+                    </div>
+                    <div class="result-info">
+                        <p class="result-name">{{ result.name }}</p>
+                        <p class="result-description">{{ result.description }}</p>
+                    </div>
+                 </div>
             </div>
         </section>
     </div>
@@ -15,6 +29,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const results = ref([]);
 const route = useRoute();
@@ -26,7 +41,6 @@ const fetchResults = async () => {
         results.value = [];
         return;
     }
-
     try {
         const response = await axios.get('/api/search', {
             params: {
@@ -61,11 +75,59 @@ h1 {
 
 .results {
     margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .result-item {
     padding: 8px;
-    border-bottom: 1px solid #eee;
     cursor: pointer;
+    flex: 1 0 250px;
+    max-width: 300px;
+}
+
+.result-card {
+    /* border: 1px solid #ddd; */
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.result-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.result-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+
+.result-info {
+    flex: 1;
+    text-align: left;
+}
+
+.result-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.result-description {
+    font-size: 14px;
+    color: #666;
+    margin: 8px 0 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>

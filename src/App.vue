@@ -21,5 +21,9 @@ provide('reload', () => {
 html {
   /* 作为基准的像素值 */
   font-size: 16px;
+  /* 设置页面背景颜色 */
+  background-color: #F4F5F7;
 }
+
+/* 其他全局样式 */
 </style>

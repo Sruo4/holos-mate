@@ -96,7 +96,7 @@ h1 {
     margin-top: 2rem;
     border-radius: 12px;
     height: 6vh;
-    background-color: #F4F5F7;
+    background-color: white;
     display: flex;
     /* 使用flex布局 */
     align-items: center;
@@ -113,7 +113,7 @@ input {
     padding: 8px;
     font-size: 16px;
     outline: none;
-    background-color: #F4F5F7;
+    background-color: inherit;
 }
 
 button {
@@ -121,7 +121,7 @@ button {
     font-size: 16px;
     border: none;
     border-radius: 12px;
-    background-color: #F4F5F7;
+    background-color: inherit;
     outline: none;
     width: 20%;
     /* 调整按钮的宽度 */

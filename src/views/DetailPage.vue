@@ -1,6 +1,9 @@
 <template>
     <div class="detail-page">
         <header>
+            <router-link to="/search">
+                返回
+            </router-link>
             <h1>详情页</h1>
         </header>
         <section v-if="detail">
