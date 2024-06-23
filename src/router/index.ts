@@ -40,7 +40,12 @@ const router = createRouter({
       path: '/detail',
       name: 'detail',
       component: () => import('../views/DetailPage.vue')
-    }
+    },
+    {
+      path: '/categories',
+      name: 'categories',
+      component: () => import('../views/CategoriesPage.vue')
+    },
   ]
 })
 

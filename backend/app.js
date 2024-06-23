@@ -79,6 +79,39 @@ app.get('/search', (req, res) => {
 
   const { keyword } = req.query
 
+  //判断keyword前两个字符是否为“分类”
+  if (keyword.slice(0, 2) === '分类') {
+    //  切分字符串，去掉“分类：”，","后切分为数组
+    const categories = keyword.slice(3).split(',');
+    // 生成查询字符串
+    console.log(categories);
+    const query = categories.map(() => '?').join(',');
+    // 查询数据库
+    pool.query(`SELECT * FROM disease WHERE category IN (${query})`, categories, (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('搜索失败');
+      }
+      console.log(results);
+
+      res.status(200).send(results);
+    });
+    return;
+
+
+  }else if (keyword.slice(0, 2) === '全部') {
+    pool.query('SELECT * FROM disease', (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('搜索失败');
+      }
+      console.log(results);
+
+      res.status(200).send(results);
+    });
+    return;
+  }
+
   pool.query('SELECT * FROM disease WHERE name LIKE ?', [`%${keyword}%`], (err, results) => {
     if (err) {
       console.error(err);

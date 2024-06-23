@@ -28,8 +28,8 @@
         <div class="categories">
             <h2>分类</h2>
             <div class="grid">
-                <div v-for="(category, index) in categories" :key="index" class="grid-item">
-                    <!-- <img :src="category.icon" :alt="category.name" /> -->
+                <div v-for="(category, index) in categories" :key="index" class="grid-item" @click="handleSort(index)">
+                    <img :src="category.icon" :alt="category.name" />
                     <span>{{ category.name }}</span>
                 </div>
             </div>
@@ -71,12 +71,12 @@ const healthTips = currentPeriod.tip;
 
 // 分类数据
 const categories = ref([
-    { name: '感染/肿瘤', icon: 'path/to/all-icon.png' },
-    { name: '代谢/内分泌', icon: 'path/to/cups-icon.png' },
-    { name: '系统性疾病', icon: 'path/to/vases-icon.png' },
-    { name: '特定条件', icon: 'path/to/plates-icon.png' },
-    { name: '其他分类', icon: 'path/to/other-icon.png' },
-    { name: '全部'}
+    { name: '感染/肿瘤', icon: new URL('@/assets/img/cate1.jpg', import.meta.url).href, categories:["传染病及寄生虫病","肿瘤","其他感染病"]},
+    { name: '代谢/内分泌', icon: new URL('@/assets/img/cate2.jpg', import.meta.url).href },
+    { name: '系统性疾病', icon: new URL('@/assets/img/cate3.jpg', import.meta.url).href },
+    { name: '特定条件', icon: new URL('@/assets/img/cate4.jpg', import.meta.url).href },
+    { name: '其他分类', icon: new URL('@/assets/img/cate5.jpg', import.meta.url).href },
+    { name: '全部', icon: new URL('@/assets/img/cate6.jpg', import.meta.url).href}
 
 ]);
 
@@ -86,6 +86,14 @@ const search = () => {
         router.push({ name: 'results', query: { q: query.value } });
     } else {
         errorMessage.value = '请输入关键词进行搜索';
+    }
+};
+
+const handleSort = (index) => {
+    if (index === 5) {
+        router.push({ name: 'results', query: { q: '全部' } });
+    } else {
+        router.push({ name: 'results', query: { q: "分类：" + categories.value[index].categories } });
     }
 };
 </script>
@@ -157,7 +165,7 @@ button {
 
 .message-container {
     margin-top: 8px;
-    height: 2rem;
+    height: 1.5rem;
 }
 
 .error-message {
@@ -181,7 +189,7 @@ button {
     flex-direction: column;
     align-items: center;
     width: 4rem;
-    height: 4rem;
+    height: 5rem;
     padding: 16px;
     border: 1px solid #E4E7EB;
     border-radius: 12px;
@@ -197,5 +205,6 @@ button {
 
 .grid-item span {
     margin-top: 8px;
+    font-size: 14px;
 }
 </style>
