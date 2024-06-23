@@ -8,10 +8,13 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     CardComponent: typeof import('./src/components/icons/CardComponent.vue')['default']
+    LifeForm: typeof import('./src/components/icons/LifeForm.vue')['default']
+    MoodForm: typeof import('./src/components/icons/MoodForm.vue')['default']
     RecordModal: typeof import('./src/components/RecordModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SwipeCard: typeof import('./src/components/SwipeCard.vue')['default']
+    SymptomsForm: typeof import('./src/components/icons/SymptomsForm.vue')['default']
     TabBar: typeof import('./src/components/TabBar.vue')['default']
   }
 }
