@@ -2,10 +2,15 @@
 <template>
   <div v-if="isVisible" class="modal-overlay" @click.self="close">
     <div class="modal-content">
-      <button @click="close">取消</button>
-      <h2>{{ recordType }}</h2>
+      <!-- 导航栏 -->
+      <div class="nav">
+        <div class="nav-title" >
+          {{ recordType }}
+        </div>
+        <button class="cancel-button" @click="close">取消</button>
+      </div>
       <component :is="currentFormComponent"></component>
-      <button @click="saveRecord">保存</button>
+      <button class="save-button" @click="saveRecord">保存</button>
     </div>
   </div>
 </template>
@@ -71,18 +76,18 @@ watch(() => props.isVisible, (newVal) => {
     steps.value = 0;
     bmi.value = 0;
     calories.value = 0;
-    }
-    });
+  }
+});
 
 const currentFormComponent = computed(() => {
-switch (props.recordType) {
-  case '心情状态':
-    return MoodForm;
-  case '生活习惯':
-    return LifestyleForm;
-  default:
-    return GeneralForm;
-}
+  switch (props.recordType) {
+    case '心情状态':
+      return MoodForm;
+    case '生活习惯':
+      return LifestyleForm;
+    default:
+      return GeneralForm;
+  }
 });
 </script>
 
@@ -109,10 +114,44 @@ switch (props.recordType) {
   height: 80%;
 }
 
+.nav {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.nav-title {
+margin-left: 34vw;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.cancel-button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #666;
+}
+
 .modal-content h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
 }
-</style>
 
+.save-button {
+  margin-top: 2rem;
+  width: 100%;
+  height: 3rem;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+</style>

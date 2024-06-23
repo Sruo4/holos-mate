@@ -1,4 +1,3 @@
-<!-- MoodForm.vue -->
 <template>
     <div class="record-form">
       <h2>选取今天整体感受</h2>
@@ -12,7 +11,7 @@
         </div>
       </div>
       <div class="mood-description">{{ moodDescription }}</div>
-      <input type="range" v-model="moodValue" min="0" max="100" @input="updateFlower" />
+      <input type="range" v-model="moodValue" min="0" max="100" @input="updateFlower" class="custom-slider" />
     </div>
   </template>
   
@@ -66,6 +65,7 @@
   
   <style scoped>
   .record-form {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,4 +132,43 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  
+  .custom-slider {
+    margin-top: 2rem;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2rem;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    border-radius: 20px;
+  }
+  
+  .custom-slider:hover {
+    opacity: 1;
+  }
+  
+  .custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .custom-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+
+
+  
   </style>
