@@ -30,7 +30,6 @@
 import { computed, ref } from 'vue';
 import SwipeCard from '../components/SwipeCard.vue';
 import RecordModal from '../components/RecordModal.vue';
-import TabBar from '../components/TabBar.vue';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 
@@ -69,7 +68,7 @@ const hideModal = () => {
   isModalVisible.value = false;
 }
 
-const handleSave = (record) => {
+const handleSave = (record: any) => {
   console.log('记录内容:', record);
   hideModal();
 }

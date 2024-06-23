@@ -4,8 +4,8 @@ import axios from 'axios';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isAuthenticated: false,
-    user: null as { username: any } | null,
-    token: null, // 保存JWT
+    user: null as { username: string } | null,
+    token: null as string | null, // 修改类型为 string | null
     rememberMe: false, // 添加rememberMe状态
   }),
   actions: {
@@ -19,12 +19,15 @@ export const useAuthStore = defineStore('auth', {
           this.isAuthenticated = true;
           this.user = { username }; // 仅保存用户名，具体信息视需求添加
           this.token = response.data.token; // 保存JWT
-          axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`; // 设置默认的Authorization头
 
-           // 如果用户选择了记住我
-           if (this.rememberMe) {
+          if (this.token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.token as string}`; // 设置默认的Authorization头
+          }
+
+          // 如果用户选择了记住我
+          if (this.rememberMe) {
             localStorage.setItem('user', JSON.stringify(this.user));
-            localStorage.setItem('token', this.token);
+            localStorage.setItem('token', this.token as string);
           }
         } else {
           // 登录失败
@@ -70,7 +73,10 @@ export const useAuthStore = defineStore('auth', {
         this.isAuthenticated = true;
         this.user = JSON.parse(user);
         this.token = token;
-        axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+
+        if (this.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${this.token as string}`;
+        }
       }
     }
   },
