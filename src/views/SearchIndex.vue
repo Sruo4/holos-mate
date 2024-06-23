@@ -8,29 +8,31 @@
             <p>十二时辰养生</p>
             <div>
                 {{ health12Hours }} {{ hoursDesc }} 养生
-                {{ healthTips }}
+                
             </div>
+            <p>{{ healthTips }}</p>
         </div>
 
         <div class="search-form">
-            <input type="text" v-model="query" placeholder="输入疾病、症状等关键词" />
+            &nbsp;<FontAwesomeIcon icon="search" />&nbsp;
+            <input type="text" v-model="query" placeholder="输入关键词" />
             <button @click="search">搜索</button>
         </div>
 
-        <div class="message-container" >
-        <div v-if="errorMessage" class="error-message">
-            {{ errorMessage }}
+        <div class="message-container">
+            <div v-if="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
         </div>
 
-    </div>
-
-    <div class="categories">
-        <h2>分类</h2>
-    </div>
+        <!-- <div class="categories">
+            <h2>分类</h2>
+        </div> -->
     </div>
 </template>
 
 <script setup>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -74,7 +76,7 @@ const search = () => {
 <style scoped>
 .search-page {
     height: 100vh;
-    padding: 16px;
+    padding: 2rem;
 }
 
 h1 {
@@ -82,15 +84,27 @@ h1 {
     font-size: 30px;
 }
 
-.search-form {
+.health-12-hours {
     margin-top: 16px;
+    background-color: white;
+    padding: 16px;
+    border: 1px solid #E4E7EB;
+    border-radius: 12px;
+}
+
+.search-form {
+    margin-top: 2rem;
     border-radius: 12px;
     height: 6vh;
     background-color: #F4F5F7;
-    display: flex; /* 使用flex布局 */
-    align-items: center; /* 使子元素在垂直方向上居中 */
-    justify-content: space-between; /* 在水平方向上分布 */
-    padding: 0 8px; /* 添加左右内边距 */
+    display: flex;
+    /* 使用flex布局 */
+    align-items: center;
+    /* 使子元素在垂直方向上居中 */
+    justify-content: space-between;
+    /* 在水平方向上分布 */
+    padding: 0 8px;
+    /* 添加左右内边距 */
 }
 
 input {
@@ -109,8 +123,11 @@ button {
     border-radius: 12px;
     background-color: #F4F5F7;
     outline: none;
-    width: 20%; /* 调整按钮的宽度 */
+    width: 20%;
+    /* 调整按钮的宽度 */
 }
+
+
 
 .message-container {
     margin-top: 16px;
