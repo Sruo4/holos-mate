@@ -27,7 +27,7 @@ export default defineConfig({
     port: 5173, // 可以自定义端口号，确保它没有被其他应用占用
     proxy: {
       "/api": {
-        target: "http://192.168.31.3:3000",
+        target: "http://127.0.0.1:3000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

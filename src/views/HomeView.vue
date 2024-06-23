@@ -5,8 +5,9 @@
         <h1>记录</h1>
       </div>
       <div class="right">
-       <!-- 圆形头像 -->
-        <img src="https://avatars.githubusercontent.com/u/204768?v=4" alt="头像" width="40" height="40" style="border-radius: 50%;"/>
+        <!-- 圆形头像 -->
+        <img src="https://avatars.githubusercontent.com/u/204768?v=4" alt="头像" width="40" height="40"
+          style="border-radius: 50%;" />
       </div>
     </div>
 
@@ -20,6 +21,11 @@
       </div> -->
     </div>
     <SwipeCard class="swipe" @click="takeRecord" />
+
+    <!-- 生成报告按钮 -->
+     <div class="g-button">
+        <button @click="generateReport">生成报告</button>
+      </div>
 
     <RecordModal :isVisible="isModalVisible" :recordType="currentRecordType" @close="hideModal" @save="handleSave" />
   </main>
@@ -66,7 +72,7 @@ const hideModal = () => {
 
 const handleSave = (record: any) => {
   console.log('记录内容:', record);
-  if (record.type==='心情状态') {
+  if (record.type === '心情状态') {
     console.log('心情状态:', record.content);
     // 发送请求
     axios.post('/api/record/mood', {
@@ -77,7 +83,7 @@ const handleSave = (record: any) => {
     }).catch(error => {
       console.error(error);
     });
-  } else if (record.type==='生活习惯') {
+  } else if (record.type === '生活习惯') {
     console.log('生活习惯:', record.content);
     axios.post('/api/record/lifestyle', {
       ...record.content,
@@ -104,6 +110,11 @@ const handleSave = (record: any) => {
 // const showRecordData = () => {
 //   router.push('/record');
 // }
+
+const generateReport = () => {
+  // router.push('/report');
+  console.log('生成报告');
+}
 </script>
 
 <style scoped>
@@ -139,5 +150,22 @@ p {
   font-weight: bold;
   color: #828282;
   margin-bottom: 0.5rem;
+}
+
+.g-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+button {
+  padding: 1rem;
+  width: 100vw;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 </style>
