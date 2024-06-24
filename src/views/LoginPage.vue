@@ -77,103 +77,144 @@ onMounted(() => {
   }
 });
 </script>
-<style scoped>
-.results-page {
-  padding: 2rem;
-  overflow-y: auto;
-  /* 启用垂直滚动 */
+<style>
+/* 限制页面高度 */
+html, body {
   height: 100%;
-  /* 确保高度占满父容器 */
-}
-
-header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-}
-
-h1 {
-  font-size: 2rem;
-}
-
-.results {
-  margin-top: 16px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.result-item {
-  cursor: pointer;
-  flex: 1 0 250px;
-  margin: 8px 0;
-}
-
-.result-card {
-  background-color: white;
-  border-radius: 8px;
-  height: 120px;
-  padding: 16px;
-  display: flex;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-}
-
-.result-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.result-image img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 16px;
-}
-
-.result-info {
-  flex: 1;
-  text-align: left;
-}
-
-.result-name {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  width: 100%;
+  overflow: hidden;
   margin: 0;
 }
 
-.result-description {
-  font-size: 14px;
-  color: #666;
-  margin: 8px 0 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.login-container {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  padding-top: 150px;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
-/* 倒数第二个按钮 */
-button:nth-last-child(2) {
-  margin: 8px 8px 0 0;
-  padding: 8px 16px;
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  /* Background在最底层 */
+  background: radial-gradient(circle at 25% 20%, #fe8833, #fabe9d, #f1dace, #e8e8e8, #e8e8e8, #e8e8e8, #e8e8e8, #e8e8e8);
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  /* 确保login-box在背景上方 */
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  width: 100vw;
+  padding: 20px;
+  /* background: white; */
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-form input {
+  padding-left: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  height: 6vh;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid white
+}
+
+.extra-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.custom-checkbox {
+  display: none; /* 隐藏默认的复选框 */
+}
+
+.custom-label {
+  position: relative;
+  padding-left: 25px; /* 为自定义复选框留出空间 */
+  cursor: pointer;
+}
+
+.custom-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.custom-checkbox:checked + .custom-label::before {
+  content: "✔";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  /* color: #007bff; */
+}
+
+.forgot-password {
+  color: gray;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #0056b3;
+}
+
+.login-button {
+  width: 100%;
+  height: 6vh;
+  margin-top: 2vh;
+  padding: 10px;
   border: none;
-  border-radius: 20px;
+  border-radius: 30px;
   background-color: #FEDE33;
   color: black;
-  font-size: 14px;
   cursor: pointer;
-  margin-top: 8px;
 }
 
-button:last-child {
-  margin: 8px 8px 0 0;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  color: black;
-  font-size: 14px;
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.switch-button {
+  margin-top: 10px;
+  color: gray;
   cursor: pointer;
-  margin-top: 8px;
+  text-align: center;
 }
 </style>
