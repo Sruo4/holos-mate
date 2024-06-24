@@ -110,7 +110,7 @@ const handleSave = (record: any) => {
       console.error(error);
     });
   }
-  window.location.reload();
+  // window.location.reload();
   hideModal();
 }
 

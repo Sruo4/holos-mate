@@ -77,7 +77,7 @@ onMounted(() => {
   }
 });
 </script>
-<style>
+<style scoped>
 /* 限制页面高度 */
 html, body {
   height: 100%;

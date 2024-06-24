@@ -76,7 +76,7 @@ watch(() => route.query.q, fetchResults);
 .results-page {
     padding: 2rem;
     overflow-y: auto; /* 启用垂直滚动 */
-    height: 100%; /* 确保高度占满父容器 */
+    height: 110%; /* 确保高度占满父容器 */
 }
 
 header {
