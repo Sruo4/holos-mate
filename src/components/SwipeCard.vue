@@ -13,6 +13,8 @@ import CardComponent from './icons/CardComponent.vue';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const cards = ref([
   { content: '心情状态', status: '今日无数据', icon: ['fas', 'seedling'], color: '#E6F8F5' },
   { content: '生活习惯', status: '今日无数据', icon: ['fas', 'person-walking'], color: '#F2E8CC' },
@@ -27,7 +29,7 @@ const handleCardClick = (card: { content: string }) => {
 
 const fetchCardStatus = async () => {
   try {
-    const response = await axios.get('/api/card-status');
+    const response = await axios.get(`${apiBaseUrl}/card-status`);
     const data = response.data;
     console.log('Card status:', data);
 

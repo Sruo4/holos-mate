@@ -58,6 +58,7 @@ interface FetchedData {
 const fetchedData = ref<FetchedData | null>(null);
 
 const authStore = useAuthStore();
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 onMounted(() => {
     fetchDataAndStart();
@@ -68,7 +69,7 @@ const fetchDataAndStart = async () => {
         // 根据uuid 获取最新的症状记录
         const uuid = authStore.user?.uuid;
         // 设置get请求的url.params为uuid
-        const response = await axios.get(`/api/symptom-record/${uuid}`);
+        const response = await axios.get(`${apiBaseUrl}/symptom-record/${uuid}`);
         fetchedData.value = response.data;
         console.log(fetchedData.value);
         console.log(fetchedData.value?.lifeRecord);

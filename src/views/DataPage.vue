@@ -62,6 +62,7 @@ interface SymptomsRecord {
 
 const route = useRoute();
 const authStore = useAuthStore();
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 const type = route.query.type as string;
 
 const data = ref<(PsychologicalRecord | PhysicalRecord | SymptomsRecord)[]>([]);
@@ -73,7 +74,7 @@ const fetchData = async () => {
     const uuid = authStore.user?.uuid;
     let response;
     if (type === 'psychological') {
-      response = await axios.get(`/api/mood-record/${uuid}`);
+      response = await axios.get(`${apiBaseUrl}/mood-record/${uuid}`);
       pageTitle.value = '心理状态数据';
       recordValueLabel.value = '心情分数';
       data.value = response?.data.map((item: { time: string; eval_value: number; }) => ({
@@ -81,7 +82,7 @@ const fetchData = async () => {
         value: item.eval_value
       })) as PsychologicalRecord[];
     } else if (type === 'physical') {
-      response = await axios.get(`/api/physical-record/${uuid}`);
+      response = await axios.get(`${apiBaseUrl}/physical-record/${uuid}`);
       pageTitle.value = '体征数据';
       recordValueLabel.value = '体征值';
       data.value = response?.data.map((item: { time: string; height: number; weight: number; sleep_hours: number; steps: number; }) => ({
@@ -92,7 +93,7 @@ const fetchData = async () => {
         steps: item.steps
       })) as PhysicalRecord[];
     } else if (type === 'symptoms') {
-      response = await axios.get(`/api/symptoms-record/${uuid}`);
+      response = await axios.get(`${apiBaseUrl}/symptoms-record/${uuid}`);
       pageTitle.value = '症状数据';
       recordValueLabel.value = '症状描述';
       data.value = response?.data.map((item: { time: string; description: string; }) => ({

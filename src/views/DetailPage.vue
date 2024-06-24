@@ -27,6 +27,7 @@ import axios from 'axios';
 
 const detail = ref(null);
 const route = useRoute();
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 // 从后端数据库获取详情数据
 const fetchDetail = async () => {
@@ -37,7 +38,7 @@ const fetchDetail = async () => {
         return;
     }
     try {
-        const response = await axios.get(`/api/detail/${id}`);
+        const response = await axios.get(`${apiBaseUrl}/detail/${id}`);
         detail.value = response.data;
     } catch (error) {
         console.error(error);

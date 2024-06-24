@@ -36,6 +36,8 @@ const results = ref([]);
 const route = useRoute();
 const router = useRouter();
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
 // 从后端数据库获取数据
 const fetchResults = async () => {
     if (!route.query.q) {
@@ -43,7 +45,7 @@ const fetchResults = async () => {
         return;
     }
     try {
-        const response = await axios.get('/api/search', {
+        const response = await axios.get(`${apiBaseUrl}/search`, {
             params: {
                 keyword: route.query.q
             }

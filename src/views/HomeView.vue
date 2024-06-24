@@ -50,6 +50,7 @@ import { useAuthStore } from '../stores/auth';
 
 const router = useRouter();
 const authStore = useAuthStore();
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 moment.updateLocale('zh-cn', {
   Weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
@@ -80,7 +81,7 @@ const handleSave = (record: any) => {
   if (record.type === '心情状态') {
     console.log('心情状态:', record.content);
     // 发送请求
-    axios.post('/api/record/mood', {
+    axios.post(`${apiBaseUrl}/record/mood`, {
       mood: record.content,
       uuid: authStore.user?.uuid
     }).then(response => {
@@ -90,7 +91,7 @@ const handleSave = (record: any) => {
     });
   } else if (record.type === '生活习惯') {
     console.log('生活习惯:', record.content);
-    axios.post('/api/record/lifestyle', {
+    axios.post(`${apiBaseUrl}/record/lifestyle`, {
       ...record.content,
       uuid: authStore.user?.uuid
     }).then(response => {
@@ -100,7 +101,7 @@ const handleSave = (record: any) => {
     });
   } else {
     console.log('症状:', record.content);
-    axios.post('/api/record/symptoms', {
+    axios.post(`${apiBaseUrl}/record/symptoms`, {
       symptoms: record.content,
       uuid: authStore.user?.uuid
     }).then(response => {

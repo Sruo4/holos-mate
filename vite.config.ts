@@ -15,13 +15,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0', // 允许外部访问
     port: 5173, // 可以自定义端口号，确保它没有被其他应用占用
-    proxy: {
-      "/api": {
-        target: "http://121.40.149.112:3000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "http://121.40.149.112:3000",
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ""),
+    //   },
+    // },
   },
   // 配置别名
   resolve: {

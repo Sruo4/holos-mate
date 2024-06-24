@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isAuthenticated: false,
@@ -12,7 +14,8 @@ export const useAuthStore = defineStore('auth', {
     async login(username: string, password: string) {
       try {
         // 调用 API 进行登录
-        const response = await axios.post('api/login', { username, password });
+        console.log('apiBaseUrl', apiBaseUrl);
+        const response = await axios.post(`${apiBaseUrl}/login`, { username, password });
         if (response.status === 200) {
           // 登录成功
           console.log('登录成功', response.data);
@@ -51,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
     async register(username: string, password: string) {
       try {
         // 注册逻辑
-        const response = await axios.post('api/register', { username, password });
+        const response = await axios.post(`${apiBaseUrl}/register`, { username, password });
         if (response.status === 201) {
           // 注册成功
           console.log('注册成功', response.data);
