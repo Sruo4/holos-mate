@@ -24,7 +24,11 @@
 
     <!-- 生成报告按钮 -->
      <div class="g-button">
-      <button @click="generateReport">
+      <button 
+        @click="generateReport"
+        :disabled="!allCardsHaveData"
+        :class="{ 'disabled-button': !allCardsHaveData }"
+      >
         {{ allCardsHaveData ? '生成报告' : '数据不足' }}
       </button>
       </div>
@@ -105,6 +109,7 @@ const handleSave = (record: any) => {
       console.error(error);
     });
   }
+  window.location.reload();
   hideModal();
 }
 
@@ -172,5 +177,10 @@ button {
   border-radius: 12px;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+button.disabled-button {
+  background-color: #d3d3d3;
+  cursor: not-allowed;
 }
 </style>

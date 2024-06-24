@@ -38,15 +38,30 @@ const props = defineProps({
     height: Number,
     weight: Number,
     sleepHours: Number,
-    steps: Number
+    steps: Number,
+    bmi: Number,
+    calories: Number
 });
 
-const emit = defineEmits(['update:height', 'update:weight', 'update:sleepHours', 'update:steps']);
+const emit = defineEmits(['update:height', 'update:weight', 'update:sleepHours', 'update:steps', 'update:bmi', 'update:calories']);
 
 const localHeight = ref(props.height);
 const localWeight = ref(props.weight);
 const localSleepHours = ref(props.sleepHours);
 const localSteps = ref(props.steps);
+
+const localbmi = computed(() => {
+    const heightNum = Number(localHeight.value);
+    const weightNum = Number(localWeight.value);
+    if (heightNum > 0 && weightNum > 0) {
+        return parseFloat((weightNum / ((heightNum / 100) ** 2)).toFixed(2));
+    }
+    return 0;
+});
+
+const localcalories = computed(() => {
+    return parseFloat((Number(localSteps.value) * 0.04).toFixed(2)); // 假设每步消耗0.04卡路里
+});
 
 watch(localHeight, (newValue) => {
     emit('update:height', newValue);
@@ -61,18 +76,15 @@ watch(localSteps, (newValue) => {
     emit('update:steps', newValue);
 });
 
-const bmi = computed(() => {
-    const heightNum = Number(localHeight.value);
-    const weightNum = Number(localWeight.value);
-    if (heightNum > 0 && weightNum > 0) {
-        return parseFloat((weightNum / ((heightNum / 100) ** 2)).toFixed(2));
-    }
-    return 0;
+watch(localbmi, (newValue) => {
+    emit('update:bmi', newValue);
 });
 
-const calories = computed(() => {
-    return parseFloat((Number(localSteps.value) * 0.04).toFixed(2)); // 假设每步消耗0.04卡路里
+watch(localcalories, (newValue) => {
+    emit('update:calories', newValue);
 });
+
+
 </script>
 
 <style scoped>

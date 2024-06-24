@@ -14,9 +14,9 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const cards = ref([
-  { content: '心情状态', status: '无', icon: ['fas', 'seedling'], color: '#E6F8F5' },
-  { content: '生活习惯', status: '无', icon: ['fas', 'person-walking'], color: '#F2E8CC' },
-  { content: '症状记录', status: '无', icon: ['fas', 'heart-circle-check'], color: '#C6CFEA' }
+  { content: '心情状态', status: '今日无数据', icon: ['fas', 'seedling'], color: '#E6F8F5' },
+  { content: '生活习惯', status: '今日无数据', icon: ['fas', 'person-walking'], color: '#F2E8CC' },
+  { content: '症状记录', status: '今日无数据', icon: ['fas', 'heart-circle-check'], color: '#C6CFEA' }
 ]);
 
 const emit = defineEmits(['click', 'hasData']);
@@ -29,11 +29,12 @@ const fetchCardStatus = async () => {
   try {
     const response = await axios.get('/api/card-status');
     const data = response.data;
+    console.log('Card status:', data);
 
     let allHaveData = true;
     cards.value = cards.value.map(card => {
       const updatedCard = data.find((item: { content: string; }) => item.content === card.content);
-      if (updatedCard && updatedCard.lastUpdate) {
+      if (updatedCard && updatedCard.lastUpdate !== '无') {
         const time = new Date(updatedCard.lastUpdate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         return {
           ...card,

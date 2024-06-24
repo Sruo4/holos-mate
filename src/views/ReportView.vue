@@ -6,8 +6,11 @@
         </div>
         <h1 class="title">今日报告</h1>
         <div class="dialogBox">
-            <div v-for="(chatContent, index) in finalChat" :key="index" class="chat-bubble">
-                <p>{{ chatContent.ai }}</p>
+            <div v-if="loading" class="loading">报告生成中...</div>
+            <div v-else>
+                <div v-for="(chatContent, index) in finalChat" :key="index" class="chat-bubble">
+                    <p>{{ chatContent.ai }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -228,6 +231,14 @@ const start = () => {
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    margin-top: 1rem;
+    color: #828282;
 }
 
 .chat-bubble {

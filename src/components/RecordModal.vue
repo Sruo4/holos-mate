@@ -12,7 +12,7 @@
         @update:moodValue="updateMoodValue"></component>
       <component :is="currentFormComponent" v-if="recordType === '生活习惯'" :height="height" :weight="weight"
         :sleepHours="sleepHours" :steps="steps" @update:height="updateHeight" @update:weight="updateWeight"
-        @update:sleepHours="updateSleepHours" @update:steps="updateSteps"></component>
+        @update:sleepHours="updateSleepHours" @update:steps="updateSteps" @update:bmi="updateBmi" @update:calories="updateCalories"></component>
       <component :is="currentFormComponent" v-if="recordType === '症状记录'" :recordText="recordText"
         @update:recordText="updateRecordText"></component>
       <button class="save-button" @click="saveRecord">保存</button>
@@ -91,6 +91,14 @@ const updateSleepHours = (newValue: unknown) => {
 
 const updateSteps = (newValue: unknown) => {
   steps.value = newValue as number;
+}
+
+const updateBmi = (newValue: unknown) => {
+  bmi.value = newValue as number;
+}
+
+const updateCalories = (newValue: unknown) => {
+  calories.value = newValue as number;
 }
 
 const updateRecordText = (newText: unknown) => {
