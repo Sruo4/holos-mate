@@ -24,7 +24,7 @@ import Categories from '../components/CategoriesComponent.vue';
 
 <style scoped>
 .search-page {
-    height: 100vh;
+    height: 80vh;
     padding: 2rem;
 }
 

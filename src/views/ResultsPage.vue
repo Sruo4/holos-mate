@@ -73,7 +73,8 @@ watch(() => route.query.q, fetchResults);
 <style scoped>
 .results-page {
     padding: 2rem;
-    /* text-align: center; */
+    overflow-y: auto; /* 启用垂直滚动 */
+    height: 100%; /* 确保高度占满父容器 */
 }
 
 header {
@@ -83,7 +84,7 @@ header {
 }
 
 h1 {
-    font-size: 2rem
+    font-size: 2rem;
 }
 
 .results {
@@ -94,20 +95,17 @@ h1 {
 }
 
 .result-item {
-    /* padding: 8px; */
     cursor: pointer;
     flex: 1 0 250px;
     margin: 8px 0;
 }
 
 .result-card {
-    /* border: 1px solid #ddd; */
     background-color: white;
     border-radius: 8px;
     height: 120px;
     padding: 16px;
     display: flex;
-    /* align-items: center; */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: box-shadow 0.3s ease;
 }
@@ -164,7 +162,6 @@ button:last-child {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
-    /* background-color: #FEDE33; */
     color: black;
     font-size: 14px;
     cursor: pointer;
